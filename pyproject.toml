@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "fablr"
+version = "0.1.0"
+description = ""
+authors = ["Jesus Caro <jmcaro2@icloud.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+pendulum = "^2.1.2"
+faker = "^19.13.0"
+usaddress = "^0.5.10"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

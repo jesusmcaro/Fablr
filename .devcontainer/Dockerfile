@@ -2,7 +2,5 @@
 FROM python:3.8
 
 # Set the working directory inside the container
-WORKDIR /app
+WORKDIR /workspaces/Fablr
 
-# Install Poetry (if not installed)
-RUN curl -sSL https://install.python-poetry.org | python3 -
