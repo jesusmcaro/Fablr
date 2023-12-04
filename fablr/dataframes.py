@@ -1,7 +1,7 @@
 from faker import Faker
 import pandas as pd
 from pandas import DataFrame
-from .extended_providers import MyProvider
+#from .extended_providers import 
 import numpy as np
 import hashlib
 
@@ -9,9 +9,10 @@ class Fablr(Faker):
     
     def __init__(self):
         self.fake = Faker()
-        self.fake.add_provider(MyProvider)
+        #self.fake.add_provider(foo)
     def set_seed(self, seed):
         Faker.seed(seed)
+    
 
     def generate_data(self,rows: int, column_providers: dict) -> list:
         data = []
@@ -32,7 +33,7 @@ class Fablr(Faker):
             df = df.drop_duplicates(subset = "hash", keep = "first")
             re_calc = rows - df.shape[0]
             while re_calc > 0:
-                df = df.append(self.generate_dataframe(re_calc, column_providers, primary_keys))
+                df = df.append(self.generate_dataframe(re_calc, column_providers, primary_keys), ignore_index = True, verify_integrity = True)
                 df = df.drop_duplicates(subset = "hash", keep = "first")
                 re_calc = rows - df.shape[0]
         return df
