@@ -1,19 +1,22 @@
 from faker import Faker
 import pandas as pd
 from pandas import DataFrame
-#from .extended_providers import 
-import numpy as np
+from .extended_providers import ToManyProvider, ToOneProvider
 import hashlib
 
 class Fablr(Faker):
     
     def __init__(self):
         self.fake = Faker()
-        #self.fake.add_provider(foo)
+        self.fake.add_provider(ToOneProvider(self.fake))
+        self.fake.add_provider(ToManyProvider(self.fake))
     def set_seed(self, seed):
         Faker.seed(seed)
     
-
+    def clear(self):
+        self.fake.unique.clear()
+        self.fake.ToOneProviderClear() # jank but works
+        
     def generate_data(self,rows: int, column_providers: dict) -> list:
         data = []
         for _ in range(rows):
