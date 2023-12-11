@@ -1,8 +1,12 @@
-from faker import Faker
-import pandas as pd
-from pandas import DataFrame
-from .extended_providers import sample_dataframe_provider, sample_list_provider
 import hashlib
+import pandas as pd
+from faker import Faker
+from pandas import DataFrame
+from .extended_providers import (
+    sample_dataframe_provider,
+    sample_list_provider,
+    random_float_provider,
+)
 
 
 class Fablr(Faker):
@@ -10,6 +14,7 @@ class Fablr(Faker):
         self.fake = Faker()
         self.fake.add_provider(sample_dataframe_provider(self.fake))
         self.fake.add_provider(sample_list_provider(self.fake))
+        self.fake.add_provider(random_float_provider(self.fake))
 
     def set_seed(self, seed):
         Faker.seed(seed)

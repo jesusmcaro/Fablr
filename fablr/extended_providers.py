@@ -58,3 +58,14 @@ class sample_list_provider(BaseProvider):
             value = self.random_element(list)
         self.generated_values.add(value)
         return value
+
+
+class random_float_provider(BaseProvider):
+    def __init__(self, faker):
+        super().__init__(faker)
+
+    def random_float(self, min: float = 0.0, max: float = 1.0, precision: int = 2):
+        return (
+            self.random_int(min=min * 10**precision, max=max * 10**precision)
+            / 10**precision
+        )

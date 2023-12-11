@@ -1,12 +1,17 @@
 repos:
+- repo: https://github.com/psf/black
+  rev: 22.10.0
+  hooks:
+   - id: black
 -  repo: https://github.com/astral-sh/ruff-pre-commit
    rev: v0.1.7
    hooks:
    -  id: ruff
-      args: [ --fix ]
+      args: [ --verbose]
    -  id: ruff-format
--  repo: https://github.com/pycqa/isort
-   rev: 5.13.0
-   hooks:
-   -  id: isort
-      name: isort (python)
+# -  repo: https://github.com/pycqa/isort
+#    rev: 5.13.0
+#    hooks:
+#    -  id: isort
+#       name: isort (python)
+#       args: [-c]
