@@ -40,25 +40,33 @@ class Fablr(Faker):
             data.append(row_data)
         return data
 
+    def build_dataframe(self, rows: int, column_providers: dict) -> DataFrame:
+        df_dict = self.generate_data(rows, column_providers)
+        df = pd.DataFrame(df_dict)
+        return df
+
     def generate_dataframe(
         self, rows: int, column_providers: dict, primary_keys: list = None
     ) -> DataFrame:
-        df = self.generate_data(rows, column_providers)
-        df = pd.DataFrame(df)
+        df = self.build_dataframe(rows, column_providers)
+        print(df)
         if primary_keys is not None:
-            print("in here")
             df = hash_columns(df, primary_keys)
             df = df.drop_duplicates(subset="hash", keep="first")
-            re_calc = rows - df.shape[0]
-            while re_calc > 0:
+            while df.shape[0] < rows:
+                additional_rows_df = self.build_dataframe(
+                    rows - df.shape[0], column_providers
+                )
+                additional_rows_df = hash_columns(additional_rows_df, primary_keys)
+                additional_rows_df = additional_rows_df.drop_duplicates(
+                    subset="hash", keep="first"
+                )
                 df = df.append(
-                    self.generate_dataframe(re_calc, column_providers, primary_keys),
-                    ignore_index=True,
-                    verify_integrity=True,
+                    additional_rows_df, ignore_index=True, verify_integrity=True
                 )
                 df = df.drop_duplicates(subset="hash", keep="first")
-                re_calc = rows - df.shape[0]
-            df = df.drop("hash")
+                print(df)
+            df = df.drop(columns="hash")
         return df
 
 
