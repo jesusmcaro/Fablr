@@ -21,8 +21,8 @@ jobs:
         shell: bash
         run : |
           curl -sSL https://install.python-poetry.org | python3 - --version 1.7.0
-          echo poetry --version
-          echo python --version
+          echo $(poetry --version)
+          echo $(python --version)
 
       - name: config-poetry
         shell: bash
