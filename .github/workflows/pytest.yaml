@@ -32,7 +32,7 @@ jobs:
       - name: install-poetry
         shell: bash
         run: |
-          poetry-install
+          poetry install
       
       - name: run-pytest
         shell: bash 
