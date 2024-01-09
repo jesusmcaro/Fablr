@@ -1,0 +1,38 @@
+name: run-pytest
+on: 
+  workflow_dispatch: 
+  push:
+    branches: [main]
+    paths:
+      - "**.py"
+      - "pyproject.toml"
+      - "poetry.lock"
+  pull_request:
+
+  jobs:
+    pytest:
+      runs-on: [ubuntu-latest]
+      steps: 
+        - name: checkout-code
+          uses: actions/checkout@v4
+
+        - name: install-poetry
+          shell: bash
+          run : |
+            curl -sSL https://install.python-poetry.org | python3 - --version 1.7.0
+            echo poetry --version
+
+        - name: config-poetry
+          shell: bash
+          run: |
+            poetry config virtualenvs.in-project true
+            poetry config installer.modern-installation false
+
+        - name: install-poetry
+          shell: bash
+          run: |
+            poetry-install
+        
+        - name: run-pytest
+          shell: bash 
+          run: poetry run pytest -vv
