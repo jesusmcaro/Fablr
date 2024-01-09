@@ -20,7 +20,7 @@ jobs:
       - name: install-poetry
         shell: bash
         run : |
-          curl -sSL https://install.python-poetry.org | python3 - --version 1.7.0
+          curl -sSL https://install.python-poetry.org | python3 - --version 1.6.1
           echo $(poetry --version)
           echo $(python --version)
 
@@ -29,7 +29,7 @@ jobs:
         run: |
           poetry config virtualenvs.in-project true
           poetry config installer.modern-installation false
-          pip install numpy==1.24.4
+          pip install numpy==1.19.5
 
       - name: install-poetry
         shell: bash
