@@ -15,13 +15,10 @@ jobs:
     runs-on: [ubuntu-latest]
     steps: 
 
-      - name: downgrade-python
-        shell: bash
-        run: |
-          sudo apt-get purge python3.10
-          sudo apt-get autoremove
-          sudo apt-get update
-          sudo apt-get install python3.8
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.8
 
       - name: checkout-code
         uses: actions/checkout@v4
