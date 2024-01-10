@@ -49,7 +49,6 @@ class Fablr(Faker):
         self, rows: int, column_providers: dict, primary_keys: list = None
     ) -> DataFrame:
         df = self.build_dataframe(rows, column_providers)
-        print(df)
         if primary_keys is not None:
             df = hash_columns(df, primary_keys)
             df = df.drop_duplicates(subset="hash", keep="first")
@@ -65,7 +64,6 @@ class Fablr(Faker):
                     additional_rows_df, ignore_index=True, verify_integrity=True
                 )
                 df = df.drop_duplicates(subset="hash", keep="first")
-                print(df)
             df = df.drop(columns="hash")
         return df
 
